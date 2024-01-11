@@ -68,9 +68,8 @@ export function streamLivestreamVideo(input: string | Readable, mediaUdp: MediaU
                 .videoBitrate(`${streamOpts.bitrateKbps}k`)
                 .format('h264')
                 .outputOptions([
-                    '-tune zerolatency',
                     '-pix_fmt yuv420p',
-                    '-preset ultrafast',
+                    '-preset veryfast',
                     '-profile:v baseline',
                     `-g ${streamOpts.fps}`,
                     `-x264-params keyint=${streamOpts.fps}:min-keyint=${streamOpts.fps}`,
