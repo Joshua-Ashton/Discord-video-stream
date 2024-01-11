@@ -1,0 +1,48 @@
+import { MediaUdp } from "./MediaUdp";
+import WebSocket from 'ws';
+type VoiceConnectionStatus = {
+    hasSession: boolean;
+    hasToken: boolean;
+    started: boolean;
+    resuming: boolean;
+};
+export declare abstract class BaseMediaConnection {
+    private interval;
+    udp: MediaUdp;
+    guildId: string;
+    channelId: string;
+    botId: string;
+    ws: WebSocket;
+    ready: (udp: MediaUdp) => void;
+    status: VoiceConnectionStatus;
+    server: string;
+    token: string;
+    session_id: string;
+    self_ip: string;
+    self_port: number;
+    address: string;
+    port: number;
+    ssrc: number;
+    videoSsrc: number;
+    rtxSsrc: number;
+    modes: string[];
+    secretkey: Uint8Array;
+    constructor(guildId: string, botId: string, channelId: string, callback: (udp: MediaUdp) => void);
+    abstract get serverId(): string;
+    stop(): void;
+    setSession(session_id: string): void;
+    setTokens(server: string, token: string): void;
+    start(): void;
+    handleReady(d: any): void;
+    handleSession(d: any): void;
+    setupEvents(): void;
+    setupHeartbeat(interval: number): void;
+    sendOpcode(code: number, data: any): void;
+    identify(): void;
+    resume(): void;
+    setProtocols(): void;
+    setVideoStatus(bool: boolean): void;
+    setSpeaking(speaking: boolean): void;
+    sendVoice(): Promise<void>;
+}
+export {};

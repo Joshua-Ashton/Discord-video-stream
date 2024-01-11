@@ -1,5 +1,4 @@
 node_modules
-dist
 package-lock.json
 #example/src/config.json
 example/node_modules
